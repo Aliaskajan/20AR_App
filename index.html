@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Video Playback</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+        <!-- Image marker -->
+        <a-marker type="pattern" url="myMarker.patt">
+            <a-video id="arVideo" src="video.mp4" width="2" height="1" position="0 0 0"></a-video>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // Auto-play video when marker is detected
+        document.querySelector("a-marker").addEventListener("markerFound", function () {
+            let video = document.getElementById("arVideo");
+            video.play();
+        });
+
+        // Pause when marker is lost
+        document.querySelector("a-marker").addEventListener("markerLost", function () {
+            let video = document.getElementById("arVideo");
+            video.pause();
+        });
+    </script>
+</body>
+</html>
